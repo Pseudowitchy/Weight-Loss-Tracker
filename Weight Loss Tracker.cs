@@ -2,21 +2,25 @@
 
 while (true)
 {
-    Console.WriteLine($"Your starting weight was: {start():0.0} lbs. Your current goal weight is: {goal():0.0} lbs\n");
-    Console.WriteLine("What would you like to do? ");
-    Console.WriteLine("  1 - Record Weight");
-    Console.WriteLine("  2 - Report Past 10 Entries");
-    Console.WriteLine("  3 - Parse Overall Change");
-    Console.WriteLine("  9 - Set/Change your Goal Weight");
-    Console.WriteLine("  0 - Exit");
-    int reply = Convert.ToInt32(Console.ReadLine());
+    if (File.Exists("weight_data.csv") && File.Exists("weight_goal.csv"))
+    {
+        Console.WriteLine($"Your starting weight was: {start():0.0} lbs. Your current goal weight is: {goal():0.0} lbs\n");
+        Console.WriteLine("What would you like to do? ");
+        Console.WriteLine("  1 - Record Weight");
+        Console.WriteLine("  2 - Report Past 10 Entries");
+        Console.WriteLine("  3 - Parse Overall Change");
+        Console.WriteLine("  9 - Set/Change your Goal Weight");
+        Console.WriteLine("  0 - Exit");
+        int reply = Convert.ToInt32(Console.ReadLine());
 
-    if (reply == 1) write();
-    else if (reply == 2) read();
-    else if (reply == 3) parse();
-    else if (reply == 9) goalSet();
-    else if (reply == 0) break;
-    else Console.WriteLine("Bad entry, please try again.");
+        if (reply == 1) write();
+        else if (reply == 2) read();
+        else if (reply == 3) parse();
+        else if (reply == 9) goalSet();
+        else if (reply == 0) break;
+        else Console.WriteLine("Bad entry, please try again.");
+    }
+    else { File.Create("weight_data.csv").Close(); File.Create("weight_goal.csv").Close(); }
 }
 
 double start()
